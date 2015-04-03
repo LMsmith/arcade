@@ -10,9 +10,6 @@ var Enemy = function(x,y,speed) {
     this.y = y;
     this.speed = speed;
 };
-//push all enemies to allEnemies array
-
-
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -35,20 +32,40 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function(x,y) {
-    handleInput = function(allowedKeys,x,y){
-
-    };
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
 };
-Player.prototype.update = function(dt) {
 
+Player.prototype.handleInput = function(key){
+    switch(key) {
+        case 'left':
+        if (this.x >= 45) {
+        this.x = this.x - 50;
+        };
+        break;
+        case 'right':
+        if (this.x <= 380) {
+        this.x = this.x + 50;
+        };
+        break;
+        case 'up':
+        if (this.y >= 20) {
+        this.y= this.y - 50;
+        };
+        break;
+        case 'down':
+        if (this.y <= 390) {
+        this.y= this.y + 50;
+        };
+        break;
+    }
 };
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
-var player = new Player(0,400);
+Player.prototype.update = function() {};
+var player = new Player(0,436);
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -57,9 +74,7 @@ var inky = new Enemy(0,230,80);
 var blinky = new Enemy(-50,140,105);
 var clyde = new Enemy(495,60,200);
 var pinky = new Enemy(200,60,200);
-var allEnemies = [inky,blinky,pinky,clyde];
-
-
+var allEnemies = [blinky,clyde,pinky,inky];
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -73,4 +88,36 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+var checkCollisions = function() {
+    for (var i = 0; i < allEnemies.length; i++) {
+        if (player.x < allEnemies[i].x + 100 &&
+       player.x + 70 > allEnemies[i].x) {
+            if(player.y < allEnemies[i].y + 60 &&
+           60 + player.y > allEnemies[i].y) {
+                player.x = 0;
+                player.y = 436;
+            }
+            else {
+
+            };
+        };
+    };
+};
+/*var playerScore = 0;
+$("#main").append(scoreCounter);
+var checkScore = function() {
+    if (player.y <= 30) {
+        var newScore = playerScore++;
+        setTimeout(function() {
+            player.x = 0;
+            player.y = 436;
+            return playerScore;
+            var formattedScore = scoreCounter.replace(0, newScore);
+        }, 500);
+    }
+};
+*/
+
+
 

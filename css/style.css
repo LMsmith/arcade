@@ -1,3 +1,17 @@
 body {
     text-align: center;
 }
+h1 {
+	color: white;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 20px;
+	line-height: 40px;
+}
+#score {
+	background-color: black;
+	height: 50px;
+	width: 235px;
+	border-radius: 4px 4px 0 0;
+	margin-left: 51.4%;
+	margin-bottom: -55px;
+}
