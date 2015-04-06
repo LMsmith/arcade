@@ -98,26 +98,25 @@ var checkCollisions = function() {
                 player.x = 0;
                 player.y = 436;
             }
-            else {
-
-            };
         };
     };
 };
-/*var playerScore = 0;
+var playerScore = 0;
 $("#main").append(scoreCounter);
 var checkScore = function() {
     if (player.y <= 30) {
-        var newScore = playerScore++;
+        playerScore++;
         setTimeout(function() {
             player.x = 0;
             player.y = 436;
-            return playerScore;
-            var formattedScore = scoreCounter.replace(0, newScore);
         }, 500);
     }
+    $("#main").empty();
+    var newScore = scoreCounter.replace("%data%", Math.round(playerScore/30));
+    $("#main").append(newScore);
 };
-*/
+
+
 
 
 

@@ -1,2 +1,2 @@
-var scoreCounter = '<h1 id="score">SCORE: 0</h1>'
+var scoreCounter = '<h1 id="score">SCORE: %data%</h1>'
 
