@@ -25,7 +25,7 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = 505;
+    canvas.width = 606;
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
@@ -81,7 +81,8 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         checkCollisions();
-        checkScore();
+        collectClues();
+        endGame();
     }
 
     /* This is called by the update function  and loops through all of the
@@ -95,7 +96,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+        //player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -109,18 +110,16 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+
+                'images/grass.png',
+                'images/tile.png',
+                'images/tile.png',
+                'images/tile.png',
+                'images/tile.png',
+                'images/carpet.png'
             ],
-            numRows = 8,
-            numCols = 5,
-            row, col;
+            numRows = 6,
+            numCols = 6
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
@@ -135,7 +134,7 @@ var Engine = (function(global) {
                  * so that we get the benefits of caching these images, since
                  * we're using them over and over.
                  */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 101);
             }
         }
 
@@ -151,10 +150,12 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
+        allClues.forEach(function(clue) {
+            clue.render();
+        });
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
         player.render();
     }
 
@@ -166,16 +167,23 @@ var Engine = (function(global) {
         // noop
     }
 
-    /* Go ahead and load all of the images we know we're going to need to
-     * draw our game level. Then set init as the callback method, so that when
-     * all of these images are properly loaded our game will start.
-     */
     Resources.load([
-        'images/stone-block.png',
-        'images/water-block.png',
-        'images/grass-block.png',
-        'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/tile.png',
+        'images/grass.png',
+        'images/scarlet.png',
+        'images/mustard.png',
+        'images/peacock.png',
+        'images/plum.png',
+        'images/green.png',
+        'images/white.png',
+        'images/knife.png',
+        'images/revolver.png',
+        'images/rope.png',
+        'images/candlestick.png',
+        'images/pipe.png',
+        'images/wrench.png',
+        'images/clue.png',
+        'images/carpet.png'
     ]);
     Resources.onReady(init);
 
