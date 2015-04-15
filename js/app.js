@@ -58,8 +58,9 @@ var allClues = [clue1,clue2,clue3,clue4,clue5,clue6];
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var playerSprite = ['images/green.png'];
 var Player = function(x,y) {
-    this.sprite = 'images/mustard.png';
+    this.sprite = playerSprite[0];
     this.x = x;
     this.y = y;
 };
@@ -126,9 +127,7 @@ var checkCollisions = function() {
 };
 
 //----------------PLAYER INTERACTIONS WITH CLUES----------------------
-//append score bar to the page
-var originalScore = scoreCounter.replace("%data%", 0);
-$("#score").prepend(originalScore);
+
 //check for collisions/collection of clues
 //playerScore increases with clues collected
 var playerScore = 0;

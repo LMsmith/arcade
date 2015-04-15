@@ -67,6 +67,9 @@ var Engine = (function(global) {
         reset();
         lastTime = Date.now();
         main();
+        //append score bar to the page
+        var originalScore = scoreCounter.replace("%data%", 0);
+        $("#score").prepend(originalScore);
     }
 
     /* This function is called by main (our game loop) and itself calls all
@@ -105,6 +108,20 @@ var Engine = (function(global) {
      * they are flipbooks creating the illusion of animation but in reality
      * they are just drawing the entire screen over and over.
      */
+    var mouseX = 0;
+    var mouseY = 0;
+    function drawStart() {
+        ctx.drawImage(Resources.get('images/test.png'), 0, 0);
+        document.addEventListener('click', choosePlayer, false);
+    }
+    function choosePlayer(e) {
+        mouseX = e.pageX;
+        mouseY = e.pageY;
+        console.log(mouseX,mouseY);
+        if (mouseY > 300) {
+            init();
+        };
+    }
     function render() {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
@@ -183,9 +200,10 @@ var Engine = (function(global) {
         'images/pipe.png',
         'images/wrench.png',
         'images/clue.png',
-        'images/carpet.png'
+        'images/carpet.png',
+        'images/test.png'
     ]);
-    Resources.onReady(init);
+    Resources.onReady(drawStart);
 
     /* Assign the canvas' context object to the global variable (the window
      * object when run in a browser) so that developer's can use it more easily
