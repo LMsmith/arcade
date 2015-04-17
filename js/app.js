@@ -58,9 +58,8 @@ var allClues = [clue1,clue2,clue3,clue4,clue5,clue6];
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var playerSprite = ['images/green.png'];
 var Player = function(x,y) {
-    this.sprite = playerSprite[0];
+    this.sprite = playerSprite;
     this.x = x;
     this.y = y;
 };
@@ -91,6 +90,7 @@ Player.prototype.handleInput = function(key){
 };
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    this.sprite = playerSprite;
 };
 // Place the player object in a variable called player
 var player = new Player(50,520);

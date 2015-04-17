@@ -57,14 +57,13 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
         win.requestAnimationFrame(main);
-    };
+    }
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
      * game loop.
      */
     function init() {
-        reset();
         lastTime = Date.now();
         main();
         //append score bar to the page
@@ -111,16 +110,34 @@ var Engine = (function(global) {
     var mouseX = 0;
     var mouseY = 0;
     function drawStart() {
-        ctx.drawImage(Resources.get('images/test.png'), 0, 0);
-        document.addEventListener('click', choosePlayer, false);
+        ctx.drawImage(Resources.get('images/start.png'), 0, 0);
+        document.addEventListener('click', startScreen, false);
     }
-    function choosePlayer(e) {
-        mouseX = e.pageX;
+    function startScreen(e) {
+
         mouseY = e.pageY;
+        mouseX = e.pageX
         console.log(mouseX,mouseY);
-        if (mouseY > 300) {
+        if (435 < mouseY < 530) {
+            document.addEventListener('click', choosePlayer, false);
+            function choosePlayer(e) {
+            if (mouseX <= 550) {
+                playerSprite = 'images/green.png';
+            } else if (mouseX <= 640) {
+                playerSprite = 'images/scarlet.png';
+            } else if (mouseX <= 725) {
+                playerSprite = 'images/mustard.png';
+            } else if (mouseX <= 810) {
+                playerSprite = 'images/peacock.png';
+            } else if (mouseX <= 895) {
+                playerSprite = 'images/plum.png';
+            } else {
+                playerSprite = 'images/white.png';
+            }
+            };
+            choosePlayer();
             init();
-        };
+        }
     }
     function render() {
         /* This array holds the relative URL to the image used
@@ -174,14 +191,7 @@ var Engine = (function(global) {
             enemy.render();
         });
         player.render();
-    }
 
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
-     */
-    function reset() {
-        // noop
     }
 
     Resources.load([
@@ -201,7 +211,7 @@ var Engine = (function(global) {
         'images/wrench.png',
         'images/clue.png',
         'images/carpet.png',
-        'images/test.png'
+        'images/start.png'
     ]);
     Resources.onReady(drawStart);
 
