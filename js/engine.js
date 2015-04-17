@@ -98,7 +98,6 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        //player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -109,32 +108,40 @@ var Engine = (function(global) {
      */
     var mouseX = 0;
     var mouseY = 0;
+    //draw the start page to the canvas
     function drawStart() {
         ctx.drawImage(Resources.get('images/start.png'), 0, 0);
         document.addEventListener('click', startScreen, false);
     }
+    //check if player has clicked on a character
+    //number of times the screen has been clicked
+    var clickCount = 0;
     function startScreen(e) {
-
         mouseY = e.pageY;
-        mouseX = e.pageX
-        console.log(mouseX,mouseY);
+        mouseX = e.pageX;
+        //if mouseY is in the correct range, check mouseX
         if (435 < mouseY < 530) {
             document.addEventListener('click', choosePlayer, false);
             function choosePlayer(e) {
-            if (mouseX <= 550) {
-                playerSprite = 'images/green.png';
-            } else if (mouseX <= 640) {
-                playerSprite = 'images/scarlet.png';
-            } else if (mouseX <= 725) {
-                playerSprite = 'images/mustard.png';
-            } else if (mouseX <= 810) {
-                playerSprite = 'images/peacock.png';
-            } else if (mouseX <= 895) {
-                playerSprite = 'images/plum.png';
-            } else {
-                playerSprite = 'images/white.png';
+                //only proceed if a character has not already been chosen
+                if (clickCount === 0) {
+                    //check which pawn the user has clicked
+                    if (mouseX <= 550) {
+                        playerSprite = 'images/green.png';
+                    } else if (mouseX <= 640) {
+                        playerSprite = 'images/scarlet.png';
+                    } else if (mouseX <= 725) {
+                        playerSprite = 'images/mustard.png';
+                    } else if (mouseX <= 810) {
+                        playerSprite = 'images/peacock.png';
+                    } else if (mouseX <= 895) {
+                        playerSprite = 'images/plum.png';
+                    } else {
+                        playerSprite = 'images/white.png';
+                    }
+                    clickCount++;
+                }
             }
-            };
             choosePlayer();
             init();
         }

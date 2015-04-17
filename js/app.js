@@ -1,3 +1,4 @@
+var scoreCounter = '<h1 id="score">CLUES: %data%</h1>'
 //--------------------------ENEMIES---------------------------
 //Enemy weapons player must avoid
 var Enemy = function(x,y,speed,sprite) {
@@ -23,7 +24,7 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var rope = new Enemy(36,305,50,'images/rope.png');
@@ -43,7 +44,7 @@ var Clue = function(y) {
 };
 Clue.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 //instantiate clues
 var clue1 = new Clue(500);
 var clue2 = new Clue(425);
@@ -120,7 +121,7 @@ var checkCollisions = function() {
                 playerScore = 0;
                 allClues.forEach(function(clue) {
                     clue.x = Math.random()*500 + 40;
-                });
+                })
             }
         }
     }
@@ -153,11 +154,11 @@ var collectClues = function() {
 //higher final score increases odds of IDing the killer
 //check outcome against the decimal in the appropriate case
 var winGame = function() {
-    console.log("You win");
+    //console.log("You win");
     confirm("You have identified the killer!");
 };
 var loseGame = function() {
-    console.log("You lose");
+    //console.log("You lose");
     confirm("You escaped, but you could not ID the killer!");
 };
 var checkClues = function(){
@@ -175,7 +176,7 @@ var checkClues = function(){
         }
         break;
         case 1:
-        if (outcome <= .25) {
+        if (outcome <= .2) {
             winGame();
         	break;
         }
@@ -185,7 +186,7 @@ var checkClues = function(){
         }
         break;
         case 2:
-        if (outcome <= .4) {
+        if (outcome <= .3) {
             winGame();
             break;
         }
@@ -195,7 +196,7 @@ var checkClues = function(){
         }
         break;
         case 3:
-        if (outcome <= .5) {
+        if (outcome <= .45) {
             winGame();
             break;
         }
@@ -205,7 +206,7 @@ var checkClues = function(){
         }
         break;
         case 4:
-        if (outcome <= .65) {
+        if (outcome <= .6) {
             winGame();
             break;
         }
@@ -215,7 +216,7 @@ var checkClues = function(){
         }
         break;
         case 5:
-        if (outcome <= .8) {
+        if (outcome <= .75) {
             winGame();
             break;
         }
@@ -246,5 +247,5 @@ var checkClues = function(){
 var endGame = function() {
 	if (player.y <= 20) {
 		checkClues();
-	};
-}
+	}
+};
