@@ -1,3 +1,6 @@
+"use strict"
+
+document.getElementById('score');
 var scoreCounter = '<h1 id="score">CLUES: %data%</h1>'
 //--------------------------ENEMIES---------------------------
 //Enemy weapons player must avoid
@@ -89,6 +92,11 @@ Player.prototype.handleInput = function(key){
         break;
     }
 };
+
+// create the playerSprite variable
+// the default choice is Mrs. White, but the player can choose any character
+var playerSprite = 'images/white.png';
+
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     this.sprite = playerSprite;
@@ -111,14 +119,24 @@ document.addEventListener('keyup', function(e) {
 //check for collisions with enemies
 //player position is reset when collisions occur
 var checkCollisions = function() {
+    // for all enemies
     for (var i = 0; i < allEnemies.length; i++) {
+
+        // if player and an enemy are in the same x position
         if (player.x < allEnemies[i].x + 65 &&
-       player.x + 35 > allEnemies[i].x) {
+        player.x + 35 > allEnemies[i].x) {
+
+            // check if the player and same enemy are in the same y position
             if(player.y < allEnemies[i].y + 75 &&
            76 + player.y > allEnemies[i].y) {
+
+               //  collision has occurred
+               // return player to start and reset score to 0
                 player.x = 50;
                 player.y = 520;
                 playerScore = 0;
+
+                // re-scatter clues
                 allClues.forEach(function(clue) {
                     clue.x = Math.random()*500 + 40;
                 })
@@ -143,7 +161,10 @@ var collectClues = function() {
             }
         }
     }
+    // clear the score before the game begins or when it resets
     $("#main").empty();
+
+    // update the score as clues are collected
     var newScore = scoreCounter.replace("%data%", Math.round(playerScore));
     $("#main").prepend(newScore);
 };
@@ -154,11 +175,9 @@ var collectClues = function() {
 //higher final score increases odds of IDing the killer
 //check outcome against the decimal in the appropriate case
 var winGame = function() {
-    //console.log("You win");
     confirm("You have identified the killer!");
 };
 var loseGame = function() {
-    //console.log("You lose");
     confirm("You escaped, but you could not ID the killer!");
 };
 var checkClues = function(){
@@ -236,6 +255,8 @@ var checkClues = function(){
         }
         break;
     }
+
+    // reset the game
     player.x = 50;
     player.y = 520;
     playerScore = 0;
@@ -243,7 +264,7 @@ var checkClues = function(){
             clue.x = Math.random()*500 + 40;
         });
 };
-//check if player has gotten out of the house
+//check if player has gotten out of the house and then count the collected clues
 var endGame = function() {
 	if (player.y <= 20) {
 		checkClues();

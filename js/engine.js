@@ -120,21 +120,21 @@ var Engine = (function(global) {
         mouseY = e.pageY;
         mouseX = e.pageX;
         //if mouseY is in the correct range, check mouseX
-        if (435 < mouseY < 530) {
+        if (420 < mouseY < 530) {
             document.addEventListener('click', choosePlayer, false);
             function choosePlayer(e) {
                 //only proceed if a character has not already been chosen
                 if (clickCount === 0) {
                     //check which pawn the user has clicked
-                    if (mouseX <= 550) {
+                    if (mouseX <= 395) {
                         playerSprite = 'images/green.png';
-                    } else if (mouseX <= 640) {
+                    } else if (mouseX <= 480) {
                         playerSprite = 'images/scarlet.png';
-                    } else if (mouseX <= 725) {
+                    } else if (mouseX <= 565) {
                         playerSprite = 'images/mustard.png';
-                    } else if (mouseX <= 810) {
+                    } else if (mouseX <= 650) {
                         playerSprite = 'images/peacock.png';
-                    } else if (mouseX <= 895) {
+                    } else if (mouseX <= 735) {
                         playerSprite = 'images/plum.png';
                     } else {
                         playerSprite = 'images/white.png';
